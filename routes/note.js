@@ -3,23 +3,25 @@ const fs = require("fs");
 const path = require("path");
 
 router.get("/notes", (req, res) =>  {
-    let notes = fs.readFileSync("db/db.json");
-    notes = JSON.parse(notes);
-    res.json(notes);
+    let note = fs.readFileSync("db/db.json")
+    note = JSON.parse(note);
+    res.json(note);
 })
 
 router.post("/notes", (req, res) => {
-    let notes = fs.readFileSync("db/db.json");
-    notes = JSON.parse(notes);
+    let note = fs.readFileSync("db/db.json");
+    note = JSON.parse(note);
 
-    req.body.id = notes.length.toString();
+    req.body.id = note.length.toString();
 
     let userN = req.body;
     console.log(req.body);
-    notes.push(userN);
+    note.push(userN);
 
-    fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(notes, null, 2));
-    res.json(notes)
+    fs.writeFileSync(path.join(__dirname, "../db/db.json"),
+    JSON.stringify(note, null, 2)
+    );
+    res.json(note)
 })
 
 module.exports = router;
